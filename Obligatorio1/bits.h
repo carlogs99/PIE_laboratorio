@@ -24,6 +24,8 @@ struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot);
 
 unsigned int encriptar(unsigned int buffer, struct Clave_t clave);
 
+int calc_largo(unsigned int valor);
+
 unsigned int permutar_bits(unsigned int buffer, int pos_a, int pos_b);
 
 int power(int base, unsigned int exponent);

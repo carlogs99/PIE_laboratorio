@@ -58,9 +58,16 @@ int main(int argc, char** argv){
 	return 0;
 	*/
 	
-	/* test: ver_clave */
+	/* test: ver_clave 
 	struct Clave_t clave;
 	clave.valor = atoi(argv[1]);
 	ver_clave(clave);
+	return 0;
+	*/
+	
+	/* test: calc_largo */
+	unsigned int buffer = atoi(argv[1]);
+	ver_binario(buffer, 0, 31);
+	printf("%d\n", calc_largo(buffer));
 	return 0;
 }

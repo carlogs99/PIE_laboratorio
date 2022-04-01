@@ -87,6 +87,22 @@ void ver_clave(struct Clave_t clave){
 	return;
 }
 
+
+
+// Devuelve cuantos bits se precisan para representar un UINT dado
+int calc_largo(unsigned int valor){
+	if(valor == 0){
+		return 0;
+	}	
+	
+	int i = sizeof(unsigned int)*CHAR_BIT - 1;
+	while(!((valor >> i) & 1)){
+		i--;
+	}
+	
+	return (i+1);  
+}
+
 // Devuelve el resultado de intercambiar el bit de la posicion pos_a 
 // con el de la posicion pos_b en buffer
 unsigned int permutar_bits(unsigned int buffer, int pos_a, int pos_b){
