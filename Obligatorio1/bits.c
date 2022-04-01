@@ -49,6 +49,8 @@ unsigned int crear_mascara(int pos_ls, int pos_ms){
 	return mascara;
 }
 
+// Devuelve la concatenacion de los num_bits_ls bits menos significativos de buffer_ls
+// con buffer_ms. Este ultimo se truca en su parte mas significativa
 unsigned int concatena(unsigned int buffer_ms, unsigned int buffer_ls, int num_bits_ls){
 	unsigned int mask_ls = crear_mascara(0, num_bits_ls - 1);
 	 
@@ -56,6 +58,28 @@ unsigned int concatena(unsigned int buffer_ms, unsigned int buffer_ls, int num_b
 	buffer_ls = buffer_ls & mask_ls;
 	
 	return (buffer_ms | buffer_ls);
+}
+
+// Devuelve el resultado de espejar los num_bits menos significativos de buffer
+// Se supone 31 >= num_bits
+unsigned int espejar(unsigned int buffer, int num_bits){
+	for(int i = 0 ; i < num_bits / 2 ; i++){
+		buffer = permutar_bits(buffer, i, num_bits - 1 - i);
+	}
+	
+	return buffer;
+}
+
+// Devuelve el resultado de intercambiar el bit de la posicion pos_a 
+// con el de la posicion pos_b en buffer
+unsigned int permutar_bits(unsigned int buffer, int pos_a, int pos_b){
+	int aux_bit;
+	
+	aux_bit = bit(buffer, pos_b);
+	buffer = set_bit(buffer, pos_b, bit(buffer, pos_a));
+	buffer = set_bit(buffer, pos_a, aux_bit);
+	
+	return buffer;
 }
 
 // Devuelve base ^ exponent
