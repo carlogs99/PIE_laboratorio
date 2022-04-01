@@ -37,6 +37,27 @@ unsigned int set_bit(unsigned int buffer, int pos, int valor){
 	return buffer;
 }
 
+// Devuelve una mascara que vale 1 en el rango pos_ms >= x >= pos_ls
+// y cero en los demas bits
+// Se supone 31 >= pos_ms >= pos_ls >= 0
+unsigned int crear_mascara(int pos_ls, int pos_ms){
+	unsigned int mascara = 0;
+	for(int i = pos_ls ; i <= pos_ms ; i++){
+		mascara = set_bit(mascara, i, 1);
+	}
+	
+	return mascara;
+}
+
+unsigned int concatena(unsigned int buffer_ms, unsigned int buffer_ls, int num_bits_ls){
+	unsigned int mask_ls = crear_mascara(0, num_bits_ls - 1);
+	 
+	buffer_ms = buffer_ms << num_bits_ls;
+	buffer_ls = buffer_ls & mask_ls;
+	
+	return (buffer_ms | buffer_ls);
+}
+
 // Devuelve base ^ exponent
 int power(int base, unsigned int exponent){
 	int result = 1;
