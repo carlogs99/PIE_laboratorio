@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 #include "bits.h"
 
@@ -68,6 +69,22 @@ unsigned int espejar(unsigned int buffer, int num_bits){
 	}
 	
 	return buffer;
+}
+
+// Devuelve uno si la cantidad de bits es par y cero si impar
+int paridad(unsigned int buffer){
+	int suma_unos = 0;
+	for(int i = 0 ; i < sizeof(unsigned int)*CHAR_BIT ; i++){
+		suma_unos = ((buffer >> i) & 1) ? suma_unos + 1 : suma_unos;
+	}
+	
+	return !(suma_unos % 2);
+}
+
+// Imprime los bits del valor de clave en binario con salto de linea al final
+void ver_clave(struct Clave_t clave){
+	ver_binario(clave.valor, 0, 31);
+	return;
 }
 
 // Devuelve el resultado de intercambiar el bit de la posicion pos_a 

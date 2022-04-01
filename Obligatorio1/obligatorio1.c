@@ -43,10 +43,24 @@ int main(int argc, char** argv){
 	return 0;
 	*/
 	
-	/* test: espejar */
+	/* test: espejar 
 	unsigned int buffer = atoi(argv[1]);
 	int num_bits = atoi(argv[2]);
 	ver_binario(buffer, 0, 31);
 	ver_binario(espejar(buffer, num_bits), 0, 31);
+	return 0;
+	*/
+	
+	/* test: paridad 
+	unsigned int buffer = atoi(argv[1]);
+	ver_binario(buffer, 0, 31);
+	printf("%d\n", paridad(buffer));
+	return 0;
+	*/
+	
+	/* test: ver_clave */
+	struct Clave_t clave;
+	clave.valor = atoi(argv[1]);
+	ver_clave(clave);
 	return 0;
 }
