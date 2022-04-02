@@ -87,7 +87,18 @@ void ver_clave(struct Clave_t clave){
 	return;
 }
 
-
+// Devuelve la clave rotada nrot veces a la izquierda sin perdida (circular)
+struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot){
+	unsigned int valor_aux = 0;
+	for(int i = 0 ; i < nrot ; i++){
+		for(int j = 0 ; j < clave.largo ; j++){
+			valor_aux = set_bit(valor_aux, (j + 1) % clave.largo , bit(clave.valor, j));
+		}
+		clave.valor = valor_aux;
+	}
+	
+	return clave;
+}
 
 // Devuelve cuantos bits se precisan para representar un UINT dado
 int calc_largo(unsigned int valor){
