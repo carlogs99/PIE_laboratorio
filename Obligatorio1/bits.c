@@ -83,11 +83,12 @@ int paridad(unsigned int buffer){
 
 // Imprime los bits del valor de clave en binario con salto de linea al final
 void ver_clave(struct Clave_t clave){
-	ver_binario(clave.valor, 0, 31);
+	ver_binario(clave.valor, 0, clave.largo - 1);
 	return;
 }
 
 // Devuelve la clave rotada nrot veces a la izquierda sin perdida (circular)
+// No se modifica el largo de la clave
 struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot){
 	unsigned int valor_aux = 0;
 	for(int i = 0 ; i < nrot ; i++){
@@ -97,7 +98,25 @@ struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot){
 		clave.valor = valor_aux;
 	}
 	
+	
 	return clave;
+}
+
+// Devuelve buffer pasado por un encriptado vigenere usando clave
+unsigned int encriptar(unsigned int buffer, struct Clave_t clave){
+	int claves_enteras = sizeof(buffer)*CHAR_BIT / calc_largo(clave.valor);
+	int num_bits_restantes = sizeof(buffer)*CHAR_BIT % calc_largo(clave.valor);
+	unsigned int clave_repetida = 0;
+	unsigned int bits_restantes = (crear_mascara(clave.largo - 1 - num_bits_restantes, clave.largo - 1) & clave.valor) >> (clave.largo - num_bits_restantes);
+		
+	for(int i = 0 ; i < claves_enteras ; i++){
+		clave_repetida = concatena(clave_repetida, clave.valor, clave.largo);
+	}
+	clave_repetida = concatena(clave_repetida, bits_restantes, num_bits_restantes);
+	printf("\nclave repetida: ");
+	ver_binario(clave_repetida, 0, 31);
+	
+	return (buffer ^ clave_repetida);
 }
 
 // Devuelve cuantos bits se precisan para representar un UINT dado

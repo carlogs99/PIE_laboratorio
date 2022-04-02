@@ -72,7 +72,7 @@ int main(int argc, char** argv){
 	return 0;
 	*/
 	
-	/* test: rotar_clave */ 
+	/* test: rotar_clave 
 	struct Clave_t clave;
 	clave.valor = atoi(argv[1]);
 	clave.largo = calc_largo(clave.valor);
@@ -81,5 +81,34 @@ int main(int argc, char** argv){
 	clave = rotar_clave(clave, 2);
 	ver_binario(clave.valor, 0, 31);
 	return 0;
+	*/ 
 	
+	/* test: encriptar */
+	unsigned int buffer = 629145; // ejemplo de la letra
+	//unsigned int buffer = atoi(argv[1]);
+	struct Clave_t clave;
+	unsigned int criptog;
+	clave.valor = 102; // ejemplo de la letra
+	//clave.valor = atoi(argv[2]); 
+	
+	clave.largo = calc_largo(clave.valor);
+	
+	printf("buffer: ");
+	ver_binario(buffer, 0, 31);
+	
+	printf("clave: ");
+	ver_clave(clave);
+	printf("largo clave: ");
+	printf("%d\n", calc_largo(clave.valor));
+	
+	criptog = encriptar(buffer, clave);
+	printf("criptograma: ");
+	ver_binario(criptog, 0, 31);
+	printf(criptog == 3448942581 ? "funciono encriptado\n" : "no funciono encriptado\n");
+	
+	printf("desencriptado: ");
+	ver_binario(encriptar(criptog, clave), 0, 31);
+	printf((encriptar(criptog, clave)) == buffer ? "funciono desencriptado\n" : "no funciono desencriptado\n");
+	
+	return 0;
 }
