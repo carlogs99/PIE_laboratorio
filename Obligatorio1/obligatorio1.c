@@ -59,14 +59,14 @@ int main(int argc, char** argv){
 	*/
 	
 	/* test: ver_clave 
-	struct Clave_t clave;
+	Clave_t clave;
 	clave.valor = atoi(argv[1]);
 	ver_clave(clave);
 	return 0;
 	*/
 	
 	/* test: rotar_clave 
-	struct Clave_t clave;
+	Clave_t clave;
 	clave.valor = atoi(argv[1]);
 	clave.largo = atoi(argv[2]);
 	printf("%d\n", clave.largo);
@@ -80,7 +80,7 @@ int main(int argc, char** argv){
 	printf("Testeando encriptar con los siguientes parametros:\n");
 	//unsigned int buffer = 629145; // ejemplo de la letra
 	unsigned int buffer = atoi(argv[1]);
-	struct Clave_t clave;
+	Clave_t clave;
 	unsigned int criptog;
 	//clave.valor = 102; // ejemplo de la letra
 	clave.valor = atoi(argv[2]); 

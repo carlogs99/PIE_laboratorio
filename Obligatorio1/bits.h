@@ -1,8 +1,8 @@
 
-struct Clave_t {
+typedef struct Clave_t {
 	unsigned int valor;
 	int largo;
-};
+} Clave_t;
 
 int bit(unsigned int buffer, int pos_bit);
 
@@ -18,11 +18,11 @@ unsigned int espejar(unsigned int buffer, int num_bits);
 
 int paridad(unsigned int buffer);
 
-void ver_clave(struct Clave_t clave);
+void ver_clave(Clave_t clave);
 
-struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot);
+Clave_t rotar_clave(Clave_t clave, unsigned int nrot);
 
-unsigned int encriptar(unsigned int buffer, struct Clave_t clave);
+unsigned int encriptar(unsigned int buffer, Clave_t clave);
 
 unsigned int permutar_bits(unsigned int buffer, int pos_a, int pos_b);
 
