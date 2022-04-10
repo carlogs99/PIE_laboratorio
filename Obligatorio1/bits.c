@@ -62,13 +62,14 @@ unsigned int concatena(unsigned int buffer_ms, unsigned int buffer_ls, int num_b
 }
 
 // Devuelve el resultado de espejar los num_bits menos significativos de buffer
+// y poner todos los bits en posiciones >= num_bits en cero
 // Se supone 31 >= num_bits
 unsigned int espejar(unsigned int buffer, int num_bits){
 	for(int i = 0 ; i < num_bits / 2 ; i++){
 		buffer = permutar_bits(buffer, i, num_bits - 1 - i);
 	}
 	
-	return buffer;
+	return (buffer & crear_mascara(0, num_bits - 1));
 }
 
 // Devuelve uno si la cantidad de bits es par y cero si impar
@@ -104,8 +105,8 @@ struct Clave_t rotar_clave(struct Clave_t clave, unsigned int nrot){
 
 // Devuelve buffer pasado por un encriptado vigenere usando clave
 unsigned int encriptar(unsigned int buffer, struct Clave_t clave){
-	int claves_enteras = clave.valor ? (sizeof(buffer)*CHAR_BIT / calc_largo(clave.valor)) : 0;
-	int num_bits_restantes = clave.valor ? (sizeof(buffer)*CHAR_BIT % calc_largo(clave.valor)) : 0;
+	int claves_enteras = clave.valor ? (sizeof(buffer)*CHAR_BIT / clave.largo) : 0;
+	int num_bits_restantes = clave.valor ? (sizeof(buffer)*CHAR_BIT % clave.largo) : 0;
 	
 	unsigned int clave_repetida = 0;
 	unsigned int bits_restantes = (crear_mascara(clave.largo - 1 - num_bits_restantes, clave.largo - 1) & clave.valor) >> (clave.largo - num_bits_restantes);
@@ -115,24 +116,10 @@ unsigned int encriptar(unsigned int buffer, struct Clave_t clave){
 	}
 	clave_repetida = concatena(clave_repetida, bits_restantes, num_bits_restantes);
 	
-	printf("\nclave repetida: ");
-	ver_binario(clave_repetida, 0, 31);
+	//printf("\nclave repetida: ");
+	//ver_binario(clave_repetida, 0, 31);
 	
 	return (buffer ^ clave_repetida);
-}
-
-// Devuelve cuantos bits se precisan para representar un UINT dado
-int calc_largo(unsigned int valor){
-	if(valor == 0){
-		return 0;
-	}	
-	
-	int i = sizeof(unsigned int)*CHAR_BIT - 1;
-	while(!((valor >> i) & 1)){
-		i--;
-	}
-	
-	return (i+1);  
 }
 
 // Devuelve el resultado de intercambiar el bit de la posicion pos_a 
