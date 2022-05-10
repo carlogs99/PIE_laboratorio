@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Obligatorio 1 PIE: Fichero Fuente bits.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Obligatorio 1 PIE
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">bits.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="bits_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structClave__t.html">   20</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structClave__t.html">Clave_t</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> valor;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">int</span> largo;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <a class="code" href="structClave__t.html">Clave_t</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">int</span> <a class="code" href="bits_8h.html#a190e1dedcd0dfb121c98da3f99e46aab">bit</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <span class="keywordtype">int</span> pos_bit);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> <a class="code" href="bits_8h.html#af9be638bc66d89dc55ee7d7193129c9e">ver_binario</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <span class="keywordtype">int</span> pos_ls, <span class="keywordtype">int</span> pos_ms);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="bits_8h.html#a74b1062f75480c6de842d97daaefab88">set_bit</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <span class="keywordtype">int</span> pos, <span class="keywordtype">int</span> valor);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> crear_mascara(<span class="keywordtype">int</span> pos_ls, <span class="keywordtype">int</span> pos_ms);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> concatena(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer_ms, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer_ls, <span class="keywordtype">int</span> num_bits_ls);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> espejar(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <span class="keywordtype">int</span> num_bits);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">int</span> paridad(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> ver_clave(<a class="code" href="structClave__t.html">Clave_t</a> clave);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<a class="code" href="structClave__t.html">Clave_t</a> rotar_clave(<a class="code" href="structClave__t.html">Clave_t</a> clave, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nrot);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> encriptar(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <a class="code" href="structClave__t.html">Clave_t</a> clave);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> permutar_bits(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buffer, <span class="keywordtype">int</span> pos_a, <span class="keywordtype">int</span> pos_b);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">int</span> power(<span class="keywordtype">int</span> base, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> exponent);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="abits_8h_html_a74b1062f75480c6de842d97daaefab88"><div class="ttname"><a href="bits_8h.html#a74b1062f75480c6de842d97daaefab88">set_bit</a></div><div class="ttdeci">unsigned int set_bit(unsigned int buffer, int pos, int valor)</div><div class="ttdoc">Establece el bit pos de buffer a 0 o a 1 según el valor del parámetro valor y devuelve el buffer con ...</div><div class="ttdef"><b>Definition:</b> <a href="bits_8c_source.html#l00039">bits.c:39</a></div></div>
+<div class="ttc" id="abits_8h_html_af9be638bc66d89dc55ee7d7193129c9e"><div class="ttname"><a href="bits_8h.html#af9be638bc66d89dc55ee7d7193129c9e">ver_binario</a></div><div class="ttdeci">void ver_binario(unsigned int buffer, int pos_ls, int pos_ms)</div><div class="ttdoc">Muestra en pantalla los bits entre el pos_ms bit más significativo (inclusive) y el pos_ls bit menos ...</div><div class="ttdef"><b>Definition:</b> <a href="bits_8c_source.html#l00028">bits.c:28</a></div></div>
+<div class="ttc" id="abits_8h_html_a190e1dedcd0dfb121c98da3f99e46aab"><div class="ttname"><a href="bits_8h.html#a190e1dedcd0dfb121c98da3f99e46aab">bit</a></div><div class="ttdeci">int bit(unsigned int buffer, int pos_bit)</div><div class="ttdoc">Devuelve el valor del bit de buffer en la posicion pos_bit.</div><div class="ttdef"><b>Definition:</b> <a href="bits_8c_source.html#l00018">bits.c:18</a></div></div>
+<div class="ttc" id="astructClave__t_html"><div class="ttname"><a href="structClave__t.html">Clave_t</a></div><div class="ttdef"><b>Definition:</b> <a href="bits_8h_source.html#l00020">bits.h:20</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

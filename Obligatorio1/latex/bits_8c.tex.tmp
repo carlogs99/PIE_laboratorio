@@ -1,0 +1,157 @@
+\hypertarget{bits_8c}{}\doxysection{Referencia del Archivo bits.\+c}
+\label{bits_8c}\index{bits.c@{bits.c}}
+
+
+Codigo fuente biblioteca de manejo de bits y encriptación para Obligatorio 1 P\+IE.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}bits.\+h\char`\"{}}\newline
+Dependencia gráfica adjunta para bits.\+c\+:
+% FIG 0
+\doxysubsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{bits_8c_a190e1dedcd0dfb121c98da3f99e46aab}{bit}} (unsigned int buffer, int pos\+\_\+bit)
+\begin{DoxyCompactList}\small\item\em Devuelve el valor del bit de buffer en la posicion pos\+\_\+bit. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bits_8c_af9be638bc66d89dc55ee7d7193129c9e}{ver\+\_\+binario}} (unsigned int buffer, int pos\+\_\+ls, int pos\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Muestra en pantalla los bits entre el pos\+\_\+ms bit más significativo (inclusive) y el pos\+\_\+ls bit menos significativo (inclusive) de la palabra de entrada buffer en forma binaria. Imprimirá pos\+\_\+ms − pos\+\_\+ls+1 bits sin espacios entre ellos teniendo a la izquierda el bit más significativo y con un salto de linea final (\char`\"{}\textbackslash{}n\char`\"{}). Se debe suponer que 31 ≥ pos\+\_\+ms ≥ pos\+\_\+ls ≥ 0, en caso contrario el comportamiento es indeterminado. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{bits_8c_a74b1062f75480c6de842d97daaefab88}{set\+\_\+bit}} (unsigned int buffer, int pos, int valor)
+\begin{DoxyCompactList}\small\item\em Establece el bit pos de buffer a 0 o a 1 según el valor del parámetro valor y devuelve el buffer con ese bit seteado al valor correspondiente. Se supone que valor es 0 o 1, en caso contrario el comportamiento es indeterminado. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{bits_8c_a5c9c197395afb58907e24d21a80bca7e}\label{bits_8c_a5c9c197395afb58907e24d21a80bca7e}} 
+unsigned int {\bfseries crear\+\_\+mascara} (int pos\+\_\+ls, int pos\+\_\+ms)
+\item 
+\mbox{\Hypertarget{bits_8c_aa4b5443781a83adbc56ea0c92b386b6d}\label{bits_8c_aa4b5443781a83adbc56ea0c92b386b6d}} 
+unsigned int {\bfseries concatena} (unsigned int buffer\+\_\+ms, unsigned int buffer\+\_\+ls, int num\+\_\+bits\+\_\+ls)
+\item 
+\mbox{\Hypertarget{bits_8c_a6c83d81791943110e389c9efb6267e4a}\label{bits_8c_a6c83d81791943110e389c9efb6267e4a}} 
+unsigned int {\bfseries espejar} (unsigned int buffer, int num\+\_\+bits)
+\item 
+\mbox{\Hypertarget{bits_8c_a0384ae13440bc259a81ef0aa03d55f98}\label{bits_8c_a0384ae13440bc259a81ef0aa03d55f98}} 
+int {\bfseries paridad} (unsigned int buffer)
+\item 
+\mbox{\Hypertarget{bits_8c_a74f5a01b8069f162684f75bd4db32607}\label{bits_8c_a74f5a01b8069f162684f75bd4db32607}} 
+void {\bfseries ver\+\_\+clave} (\mbox{\hyperlink{structClave__t}{Clave\+\_\+t}} clave)
+\item 
+\mbox{\Hypertarget{bits_8c_ae59ea4d0a95523476fa60a27abcf2595}\label{bits_8c_ae59ea4d0a95523476fa60a27abcf2595}} 
+\mbox{\hyperlink{structClave__t}{Clave\+\_\+t}} {\bfseries rotar\+\_\+clave} (\mbox{\hyperlink{structClave__t}{Clave\+\_\+t}} clave, unsigned int nrot)
+\item 
+\mbox{\Hypertarget{bits_8c_a4ab1d2459a7569384c54893bcd0c67ac}\label{bits_8c_a4ab1d2459a7569384c54893bcd0c67ac}} 
+unsigned int {\bfseries encriptar} (unsigned int buffer, \mbox{\hyperlink{structClave__t}{Clave\+\_\+t}} clave)
+\item 
+\mbox{\Hypertarget{bits_8c_aeed749d7927a44a4e72675884eb1efce}\label{bits_8c_aeed749d7927a44a4e72675884eb1efce}} 
+unsigned int {\bfseries permutar\+\_\+bits} (unsigned int buffer, int pos\+\_\+a, int pos\+\_\+b)
+\item 
+\mbox{\Hypertarget{bits_8c_a17dda1a7c2d337c84abc63f177e3b0c6}\label{bits_8c_a17dda1a7c2d337c84abc63f177e3b0c6}} 
+int {\bfseries power} (int base, unsigned int exponent)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Codigo fuente biblioteca de manejo de bits y encriptación para Obligatorio 1 P\+IE. 
+
+\begin{DoxyAuthor}{Autor}
+Carlos Gruss 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+09 may 2022 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentación de las funciones}
+\mbox{\Hypertarget{bits_8c_a190e1dedcd0dfb121c98da3f99e46aab}\label{bits_8c_a190e1dedcd0dfb121c98da3f99e46aab}} 
+\index{bits.c@{bits.c}!bit@{bit}}
+\index{bit@{bit}!bits.c@{bits.c}}
+\doxysubsubsection{\texorpdfstring{bit()}{bit()}}
+{\footnotesize\ttfamily int bit (\begin{DoxyParamCaption}\item[{unsigned int}]{buffer,  }\item[{int}]{pos\+\_\+bit }\end{DoxyParamCaption})}
+
+
+
+Devuelve el valor del bit de buffer en la posicion pos\+\_\+bit. 
+
+Ejemplo\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{bits_8c_a190e1dedcd0dfb121c98da3f99e46aab}{bit}}(2, 1)}
+\end{DoxyCode}
+ Va a retornar el entero 1.
+
+
+\begin{DoxyParams}{Parámetros}
+{\em buffer} & Entero sin signo al que se le quiere testear el valor. \\
+\hline
+{\em pos\+\_\+bit} & Posición sobre la cual se quiere testear el valor del bit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Valor del bit pos\+\_\+bit de buffer. Será un entero 1 o 0. 
+\end{DoxyReturn}
+
+
+Definición en la línea 18 del archivo bits.\+c.
+
+\mbox{\Hypertarget{bits_8c_a74b1062f75480c6de842d97daaefab88}\label{bits_8c_a74b1062f75480c6de842d97daaefab88}} 
+\index{bits.c@{bits.c}!set\_bit@{set\_bit}}
+\index{set\_bit@{set\_bit}!bits.c@{bits.c}}
+\doxysubsubsection{\texorpdfstring{set\_bit()}{set\_bit()}}
+{\footnotesize\ttfamily unsigned int set\+\_\+bit (\begin{DoxyParamCaption}\item[{unsigned int}]{buffer,  }\item[{int}]{pos,  }\item[{int}]{valor }\end{DoxyParamCaption})}
+
+
+
+Establece el bit pos de buffer a 0 o a 1 según el valor del parámetro valor y devuelve el buffer con ese bit seteado al valor correspondiente. Se supone que valor es 0 o 1, en caso contrario el comportamiento es indeterminado. 
+
+Ejemplo\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{bits_8c_a74b1062f75480c6de842d97daaefab88}{set\_bit}}(0, 0, 1)}
+\end{DoxyCode}
+ Convierte el número 0 en 1.
+
+
+\begin{DoxyParams}{Parámetros}
+{\em buffer} & Entero sin signo al que se le quiere modificar un bit. \\
+\hline
+{\em pos\+\_\+ls} & Posición del bit que se quiere modificar. \\
+\hline
+{\em pos\+\_\+ms} & Valor que se le quiere fijar al bit pos. Se supone que valor es 0 o 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Entero sin signo igual a buffer, con el bit pos modificado con el valor de valor 
+\end{DoxyReturn}
+
+
+Definición en la línea 39 del archivo bits.\+c.
+
+\mbox{\Hypertarget{bits_8c_af9be638bc66d89dc55ee7d7193129c9e}\label{bits_8c_af9be638bc66d89dc55ee7d7193129c9e}} 
+\index{bits.c@{bits.c}!ver\_binario@{ver\_binario}}
+\index{ver\_binario@{ver\_binario}!bits.c@{bits.c}}
+\doxysubsubsection{\texorpdfstring{ver\_binario()}{ver\_binario()}}
+{\footnotesize\ttfamily void ver\+\_\+binario (\begin{DoxyParamCaption}\item[{unsigned int}]{buffer,  }\item[{int}]{pos\+\_\+ls,  }\item[{int}]{pos\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Muestra en pantalla los bits entre el pos\+\_\+ms bit más significativo (inclusive) y el pos\+\_\+ls bit menos significativo (inclusive) de la palabra de entrada buffer en forma binaria. Imprimirá pos\+\_\+ms − pos\+\_\+ls+1 bits sin espacios entre ellos teniendo a la izquierda el bit más significativo y con un salto de linea final (\char`\"{}\textbackslash{}n\char`\"{}). Se debe suponer que 31 ≥ pos\+\_\+ms ≥ pos\+\_\+ls ≥ 0, en caso contrario el comportamiento es indeterminado. 
+
+Ejemplo\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{bits_8c_af9be638bc66d89dc55ee7d7193129c9e}{ver\_binario}}(3, 0, 3)}
+\end{DoxyCode}
+ Imprime en pantalla \char`\"{}0011\char`\"{}.
+
+
+\begin{DoxyParams}{Parámetros}
+{\em buffer} & Entero sin signo a imprimir en pantalla. \\
+\hline
+{\em pos\+\_\+ls} & Posición mínima a mostrar. \\
+\hline
+{\em pos\+\_\+ms} & Posición máxima a mostrar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+Nulo. 
+\end{DoxyReturn}
+
+
+Definición en la línea 28 del archivo bits.\+c.
+

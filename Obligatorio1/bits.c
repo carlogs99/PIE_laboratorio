@@ -1,3 +1,12 @@
+
+/**
+ * @file bits.c
+ * @author Carlos Gruss
+ * @date 09 may 2022
+ * @brief Codigo fuente biblioteca de manejo de bits y encriptación 
+ * para Obligatorio 1 PIE.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -50,8 +59,8 @@ unsigned int crear_mascara(int pos_ls, int pos_ms){
 	return mascara;
 }
 
-// Devuelve la concatenacion de los num_bits_ls bits menos significativos de buffer_ls
-// con buffer_ms. Este ultimo se truca en su parte mas significativa
+// Devuelve la concatenacion de los num_bits_ls bits menos significativos de 
+// buffer_ls con buffer_ms. Este ultimo se truca en su parte mas significativa
 unsigned int concatena(unsigned int buffer_ms, unsigned int buffer_ls, int num_bits_ls){
 	unsigned int mask_ls = crear_mascara(0, num_bits_ls - 1);
 	 
@@ -94,7 +103,8 @@ Clave_t rotar_clave(Clave_t clave, unsigned int nrot){
 	unsigned int valor_aux = 0;
 	for(int i = 0 ; i < nrot ; i++){
 		for(int j = 0 ; j < clave.largo ; j++){
-			valor_aux = set_bit(valor_aux, (j + 1) % clave.largo , bit(clave.valor, j));
+			valor_aux = set_bit(valor_aux, (j + 1) % clave.largo ,
+			bit(clave.valor, j));
 		}
 		clave.valor = valor_aux;
 	}
@@ -105,20 +115,22 @@ Clave_t rotar_clave(Clave_t clave, unsigned int nrot){
 
 // Devuelve buffer pasado por un encriptado vigenere usando clave
 unsigned int encriptar(unsigned int buffer, Clave_t clave){
-	int claves_enteras = clave.valor ? (sizeof(buffer)*CHAR_BIT / clave.largo) : 0;
-	int num_bits_restantes = clave.valor ? (sizeof(buffer)*CHAR_BIT % clave.largo) : 0;
+	int claves_enteras = clave.valor ? 
+	(sizeof(buffer)*CHAR_BIT / clave.largo) : 0;
+	
+	int num_bits_restantes = clave.valor ? 
+	(sizeof(buffer)*CHAR_BIT % clave.largo) : 0;
 	
 	unsigned int clave_repetida = 0;
-	unsigned int bits_restantes = (crear_mascara(clave.largo - 1 - num_bits_restantes, clave.largo - 1) & clave.valor) >> (clave.largo - num_bits_restantes);
+	unsigned int bits_restantes = 
+	(crear_mascara(clave.largo - 1 - num_bits_restantes, clave.largo - 1) & clave.valor) 
+	>> (clave.largo - num_bits_restantes);
 		
 	for(int i = 0 ; i < claves_enteras ; i++){
 		clave_repetida = concatena(clave_repetida, clave.valor, clave.largo);
 	}
 	clave_repetida = concatena(clave_repetida, bits_restantes, num_bits_restantes);
-	
-	//printf("\nclave repetida: ");
-	//ver_binario(clave_repetida, 0, 31);
-	
+		
 	return (buffer ^ clave_repetida);
 }
 
