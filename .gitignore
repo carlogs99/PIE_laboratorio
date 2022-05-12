@@ -1,2 +1,19 @@
-**/cripto_imagenes_ppm
-**/imagenes_ppm
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+### Above combination will ignore all files without extension ###
+
+# Ignore image example folders
+Obligatorio2/cripto_imagenes_ppm/
+Obligatorio2/imagenes_ppm/
+
+# Ignore all object files
+*.o
+
+
