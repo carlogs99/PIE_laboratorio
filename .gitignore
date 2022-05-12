@@ -16,4 +16,7 @@ Obligatorio2/imagenes_ppm/
 # Ignore all object files
 *.o
 
+# Unignore Makefiles
+!Makefile
+
 
