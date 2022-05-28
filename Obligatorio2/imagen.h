@@ -35,6 +35,16 @@ PPM_CRIPTO_NO_VALIDA, ERROR} CodigoError_t;
  */
 CodigoError_t inicializar_imagen(Imagen_t* pin, int filas, int columnas);
 
+/**
+ * @brief Libera la memoria asociada a los pixeles de la imagen apuntada por pin
+ *  y pone todos sus atributos en 0.
+ *
+ * Se asume que pin se encuentra inicializada al pasarse a la funcion.
+ *
+ * @param pin Puntero a imagen a destruir.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t destruir_imagen(Imagen_t* pin);
 
 CodigoError_t duplicar_imagen(const Imagen_t* pin, Imagen_t* pout);
