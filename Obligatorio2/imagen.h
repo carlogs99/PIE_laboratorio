@@ -24,8 +24,8 @@ PPM_CRIPTO_NO_VALIDA, ERROR} CodigoError_t;
 
 /**
  * @brief Inicializa los datos de la imagen apuntada por pin y reserva memoria 
- * para sus nuevos pixeles. NO se debe inicializar los pixeles con ningun valor 
- * en particular, basta con dejar el valor que por defecto asigne malloc.
+ * para sus nuevos pixeles. NO inicializa los pixeles con ningun valor 
+ * en particular, deja el valor que por defecto asigne malloc.
  *
  * @param pin Puntero a imagen a inicializar.
  * @param filas Cantidad de filas de la imagen.
@@ -37,7 +37,7 @@ CodigoError_t inicializar_imagen(Imagen_t* pin, int filas, int columnas);
 
 /**
  * @brief Libera la memoria asociada a los pixeles de la imagen apuntada por pin
- *  y pone todos sus atributos en 0.
+ * y pone todos sus atributos en 0.
  *
  * Se asume que pin se encuentra inicializada al pasarse a la funcion.
  *
@@ -47,8 +47,32 @@ CodigoError_t inicializar_imagen(Imagen_t* pin, int filas, int columnas);
  */
 CodigoError_t destruir_imagen(Imagen_t* pin);
 
+/**
+ * @brief Copia los atributos filas y columnas de la imagen apuntada por pin 
+ * en la imagen apuntada por pout. Ademas reserva la memoria para los pixeles 
+ * de pout. NO se debe inicializar los pixeles con ningun valor en particular.
+ *
+ * Se asume que previo a la llamada de esta funcion, la imagen apuntada por pout 
+ * no tiene reservada memoria para sus pixeles, es decir, no se debe llamar 
+ * a destruir imagen.
+ *
+ * @param pin  Puntero a imagen fuente que se desea duplicar.
+ * @param pout Puntero a imagen que quedara inicializada.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t duplicar_imagen(const Imagen_t* pin, Imagen_t* pout);
 
+/**
+ * @brief Lee el contenido del archivo ubicado en ruta imagen y lo guarda en 
+ * la imagen apuntada por pin. Se asume que no se ha inicializado pin.
+ * Se implementa la lectura de imagenes en formatos PPM y PPM plano.
+ *
+ * @param ruta_imagen Ruta desde donde leer la imagen.
+ * @param pin Puntero a tipo Imagen_t, en el que cargar el contenido leido.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t*pin);
 
 CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 

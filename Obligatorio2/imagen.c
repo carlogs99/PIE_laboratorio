@@ -45,13 +45,64 @@ CodigoError_t inicializar_imagen(Imagen_t* pin, int filas, int columnas) {
 CodigoError_t destruir_imagen(Imagen_t* pin) {
 	int nFilas = pin->filas;
 	
-	//Logica inversa a inicializar_imagen
+	//Logica inversa a inicializar_imagen para liberar memoria
 	for(int i = 0 ; i < nFilas ; i++) {
 		free((pin->pixeles)[i]);
 	}
 	
 	free(pin->pixeles);
 	
+	//Pone atributos en cero
+	pin->filas = 0;
+	pin->columnas = 0;
+	
 	return OK;
 }
+
+CodigoError_t duplicar_imagen(const Imagen_t* pin, Imagen_t* pout) {	
+	return inicializar_imagen(pout, pin->filas, pin->columnas);
+}
+
+CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t*pin) {
+	FILE* fp;
+	char* num_magico, ancho_img_str, alto_img_str;
+	FormatoPPM_t formato_img;
+	int filas, columnas;
+	
+	fp = fopen(ruta_imagen, "r");
+	if(fp == NULL) {
+		return PPM_ARCHIVO_INEXISTENTE;
+	}
+	
+	//Lectura del encabezado:
+	//El asterisco suprime el argumento de valor maximo canal
+	//se asume que este es siempre 255
+	if(fscanf(fp, "%s %s %s %*s", num_magico, ancho_img_str, alto_img_str) != 3) {
+		return PPM_ERROR_LECTURA;
+	}
+	
+	//Chequeos de formato del encabezado:
+	if(num_magico == "P3") {
+		formato_img = PLANO;
+	} else if(num_magico == "P6") {
+		formato_img = NO_PLANO;
+		
+	} else {
+		return PPM_ENCABEZADO_INVALIDO;
+	}
+	
+	if(!(filas = atoi(alto_img_str))) {
+		return PPM_ENCABEZADO_INVALIDO;
+	}
+	
+	if(!(columnas = atoi(ancho_img_str))) {
+		return PPM_ENCABEZADO_INVALIDO;
+	}
+	
+	
+	
+	
+	
+}
+
 
