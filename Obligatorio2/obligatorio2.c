@@ -30,6 +30,18 @@ int main(int argc, char** argv) {
 	printf("CodigoError destruir_imagen: %d\n", codigoDest);
 	*/
 	
+	/*Test para leer_imagen */
+	Imagen_t pin;
+	CodigoError_t CE = leer_imagen("./imagenes_ppm/carnaval_plano.ppm", &pin);
+	printf("CodigoError leer_imagen: %d\n", CE);
+	for(int i = 0 ; i < pin.filas ; i++) {
+		for(int j = 0 ; j < pin.columnas ; j++) {
+			printf("Contenido en IMG(%d, %d) = %u\n", i, j, (pin.pixeles)[i][j]); 
+		}
+	}
+	
+	CE = destruir_imagen(&pin);
+	printf("CodigoError destruir_imagen: %d\n", CE);
 	
 	return 0;
 }

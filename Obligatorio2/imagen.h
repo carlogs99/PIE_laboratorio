@@ -73,7 +73,7 @@ CodigoError_t duplicar_imagen(const Imagen_t* pin, Imagen_t* pout);
  * 
  * @return Devuelve un valor de tipo CodigoError_t segun el caso.
  */
-CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t*pin);
+CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin);
 
 CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 
 FormatoPPM_t formato);
