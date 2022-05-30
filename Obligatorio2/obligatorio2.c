@@ -10,11 +10,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <string.h>
 #include "bits.h"
 #include "imagen.h"
 
 int main(int argc, char** argv) {
-
+	Imagen_t pin;
+	CodigoError_t CE; 
+	
 	/*Tests basicos inicializar_imagen y destruir_imagen
 	Imagen_t pin;
 	CodigoError_t codigoIni = inicializar_imagen(&pin, 10, 12);
@@ -47,8 +50,30 @@ int main(int argc, char** argv) {
 	printf("CodigoError destruir_imagen: %d\n", CE);
 	*/
 	
+	//Subcomando: convertir_formato
+	//Subcomando para convertir de formato plano a no plano y viceversa.
+	//Formato: ./obligatorio2 convertir_formato RUTA_IM_ENTRADA RUTA_IM_SALIDA FORMATO_PPM
+	if(!(strcmp(argv[1], "convertir_formato"))){
+		if(argc != 5) {
+			return ERROR;
+		} else {
+			CE = leer_imagen(argv[2], &pin);
+			if(CE != OK) {
+				return CE;
+			} else {
+				CE = escribir_imagen(&pin, argv[3], PLANO);
+				if(CE != OK) {
+					return CE;
+				} else {
+					return OK;
+				}
+			}
+		}
+	}
 	
 	
-	return 0;
+	
+	
+	return OK;
 }
 
