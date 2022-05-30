@@ -86,6 +86,10 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 	//El asterisco suprime el argumento de valor maximo canal
 	//se asume que este es siempre 255
 	if(fscanf(fp, "%s %s %s %*s", num_magico, ancho_img_str, alto_img_str) != 3) {
+		free(num_magico);
+		free(ancho_img_str);
+		free(alto_img_str);
+		fclose(fp);
 		return PPM_ERROR_LECTURA;
 	}
 	
@@ -96,14 +100,26 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		formato_img = NO_PLANO;
 		
 	} else {
+		free(num_magico);
+		free(ancho_img_str);
+		free(alto_img_str);
+		fclose(fp);
 		return PPM_ENCABEZADO_INVALIDO;
 	}
 	
 	if(!(filas = atoi(alto_img_str))) {
+		free(num_magico);
+		free(ancho_img_str);
+		free(alto_img_str);
+		fclose(fp);
 		return PPM_ENCABEZADO_INVALIDO;
 	}
 	
 	if(!(columnas = atoi(ancho_img_str))) {
+		free(num_magico);
+		free(ancho_img_str);
+		free(alto_img_str);
+		fclose(fp);
 		return PPM_ENCABEZADO_INVALIDO;
 	}
 	
@@ -114,6 +130,7 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 	
 	//Inicializar imagen:
 	if(inicializar_imagen(pin, filas, columnas) == ERROR) {
+		fclose(fp);
 		return ERROR;
 	}
 	
@@ -125,7 +142,7 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		aux_pixel_B = (char*) malloc(3 * sizeof(char));
 		for(int i = 0 ; i < filas ; i++) {
 			for(int j = 0 ; j < columnas ; j++) {
-				fscanf(fp, "%s %s %s", aux_pixel_R, aux_pixel_G, aux_pixel_B);
+				fscanf(fp, "%s %s %s", aux_pixel_R, aux_pixel_G, aux_pixel_B);		//IMPLEMENTAR ERROR PPM_DATOS_INVALIDOS
 				aux_pixel = atoi(aux_pixel_R);
 				aux_pixel = concatena(aux_pixel, atoi(aux_pixel_G), 8);
 				aux_pixel = concatena(aux_pixel, atoi(aux_pixel_B), 8);
@@ -150,7 +167,54 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		}
 	}
 	
+	fclose(fp);
 	return OK;
 }
 
-
+CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 
+FormatoPPM_t formato) {
+	FILE* fp;
+	unsigned int mascara_R, mascara_G, mascara_B, 
+	aux_pixel_R, aux_pixel_G, aux_pixel_B;
+	
+	fp = fopen(ruta_imagen, "w");
+	if(fp == NULL) {
+		return PPM_ERROR_ESCRITURA;
+	}
+	
+	
+	mascara_R = crear_mascara(16, 23);
+	mascara_G = crear_mascara(8, 15);
+	mascara_B = crear_mascara(0, 7);
+	if(formato == PLANO) {
+		fprintf(fp, "%s\n%u\n%u\n%u\n", "P3", pin->columnas, pin->filas, 255);		//ERROR CHECKING FALTA
+		for(int i = 0 ; i < (pin->filas) ; i++) {
+			for(int j = 0 ; j < (pin->columnas) ; j++) {
+				aux_pixel_R = ((pin->pixeles)[i][j] & mascara_R) >> 16;
+				aux_pixel_G = ((pin->pixeles)[i][j] & mascara_G) >> 8;
+				aux_pixel_B = ((pin->pixeles)[i][j] & mascara_B);
+			
+				fprintf(fp, "%u %u %u\t", aux_pixel_R, aux_pixel_G, aux_pixel_B); 
+			}
+		}
+	} else if(formato == NO_PLANO) {
+		fprintf(fp, "%s\n%u\n%u\n%u\n", "P6", pin->columnas, pin->filas, 255);
+		for(int i = 0 ; i < (pin->filas) ; i++) {
+			for(int j = 0 ; j < (pin->columnas) ; j++) {
+				aux_pixel_R = ((pin->pixeles)[i][j] & mascara_R) >> 16;
+				aux_pixel_G = ((pin->pixeles)[i][j] & mascara_G) >> 8;
+				aux_pixel_B = ((pin->pixeles)[i][j] & mascara_B);
+				
+				fputc(aux_pixel_R, fp);
+				fputc(aux_pixel_G, fp);
+				fputc(aux_pixel_B, fp);
+			}
+		}
+	} else {
+		fclose(fp);
+		return ERROR;
+	}
+	
+	fclose(fp);
+	return OK;
+}

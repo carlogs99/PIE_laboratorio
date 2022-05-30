@@ -75,6 +75,17 @@ CodigoError_t duplicar_imagen(const Imagen_t* pin, Imagen_t* pout);
  */
 CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin);
 
+/**
+ * Guarda el contenido de la imagen pin en el archivo especificado 
+ * por ruta, formatos PPM y PPM plano.
+ * Asume que pin esta inicializada previo a la llamada de la funcion.
+ *
+ * @param pin Puntero a imagen que se desea escribir a archivo.
+ * @param ruta_imagen Ruta en la que se desea escribir el archivo.
+ * @param formato Formato de escritura (PPM binario o PPM plano).
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 
 FormatoPPM_t formato);
 
