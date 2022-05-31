@@ -11,8 +11,13 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <string.h>
+#include <math.h>
 #include "bits.h"
 #include "imagen.h"
+
+#define mascara_R crear_mascara(16, 23)
+#define mascara_G crear_mascara(8, 15)
+#define mascara_B crear_mascara(0, 7)
 
 CodigoError_t inicializar_imagen(Imagen_t* pin, int filas, int columnas) {
 	// Inicializacion de filas y columnas de la imagen
@@ -174,18 +179,14 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 
 FormatoPPM_t formato) {
 	FILE* fp;
-	unsigned int mascara_R, mascara_G, mascara_B, 
-	aux_pixel_R, aux_pixel_G, aux_pixel_B;
+	unsigned int aux_pixel_R, aux_pixel_G, aux_pixel_B;
+	
 	
 	fp = fopen(ruta_imagen, "w");
 	if(fp == NULL) {
 		return PPM_ERROR_ESCRITURA;
 	}
 	
-	
-	mascara_R = crear_mascara(16, 23);
-	mascara_G = crear_mascara(8, 15);
-	mascara_B = crear_mascara(0, 7);
 	if(formato == PLANO) {
 		fprintf(fp, "%s\n%u\n%u\n%u\n", "P3", pin->columnas, pin->filas, 255);		//ERROR CHECKING FALTA
 		for(int i = 0 ; i < (pin->filas) ; i++) {
@@ -217,4 +218,36 @@ FormatoPPM_t formato) {
 	
 	fclose(fp);
 	return OK;
+}
+
+CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout) {
+	unsigned int R_in, G_in, B_in, R_out, G_out, B_out, aux_pixel;
+	
+	if(inicializar_imagen(pout, pin->filas, pin->columnas)) {
+		return ERROR;
+	}
+	
+	for(int i = 0 ; i < (pin->filas) ; i++) {
+		for(int j = 0 ; j < (pin->columnas) ; j++) {
+			R_in = ((pin->pixeles)[i][j] & mascara_R) >> 16;
+			G_in = ((pin->pixeles)[i][j] & mascara_G) >> 8;
+			B_in = ((pin->pixeles)[i][j] & mascara_B);
+			
+			R_out = min(round(0.393*R_in + 0.769*B_in + 0.189*G_in), 255);
+			G_out = min(round(0.349*R_in + 0.686*B_in + 0.168*G_in), 255);
+			B_out = min(round(0.272*R_in + 0.534*B_in + 0.131*G_in), 255);
+			
+			aux_pixel = R_out;
+			aux_pixel = concatena(aux_pixel, G_out, 8);
+			aux_pixel = concatena(aux_pixel, B_out, 8);
+			
+			(pout->pixeles)[i][j] = aux_pixel;
+		}
+	}
+	
+	return OK;
+}
+
+pixel_t min(unsigned int a, unsigned int b) {
+	return (a <= b) ? a : b;
 }

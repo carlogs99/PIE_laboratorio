@@ -7,7 +7,6 @@
  * para Obligatorio 2 PIE.
  */
 
-
 typedef unsigned int pixel_t;
 
 typedef struct imagen {
@@ -89,6 +88,18 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin);
 CodigoError_t escribir_imagen(const Imagen_t* pin, const char* ruta_imagen, 
 FormatoPPM_t formato);
 
+/**
+ * @brief Se asume que pin esta inicializada al pasarse a la funcion, 
+ * mientras que pout no lo esta.
+ * Aplica un filtro sepia sobre la imagen de entrada apuntada por pin y guarda 
+ * el resultado en la imagen apuntada por pout. La reserva de memoria para los
+ * pixeles de pout se realiza dentro de la funcion.
+ *
+ * @param pin Puntero conteniendo la imagen a filtrar.
+ * @param pout Puntero conteniendo el resultado de aplicar el filtro sepia.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout);
 
 CodigoError_t generar_cripto_imagen(Imagen_t* pcriptoim, int filas, int columnas,
@@ -99,5 +110,12 @@ CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim);
 CodigoError_t encriptar_imagen(const Imagen_t* pin, const Imagen_t* prcriptoim,
 Imagen_t* pout);
 
-
-
+/**
+ * Devuelve el minimo de dos numeros enteros.
+ *
+ * @param a Primer numero.
+ * @param b Segundo numero.
+ * 
+ * @return Minimo entre a y b.
+ */
+pixel_t min(unsigned int a, unsigned int b);
