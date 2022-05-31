@@ -26,13 +26,16 @@ int main(int argc, char** argv) {
 		} else {
 			CE = leer_imagen(argv[2], &pin);
 			if(CE != OK) {
+				destruir_imagen(&pin);
 				return CE;
 			} else {
 				formato = !strcmp(argv[4], "PLANO") ? PLANO : NO_PLANO;
 				CE = escribir_imagen(&pin, argv[3], formato);
 				if(CE != OK) {
+					destruir_imagen(&pin);
 					return CE;
 				} else {
+					destruir_imagen(&pin);
 					return OK;
 				}
 			}
@@ -43,17 +46,24 @@ int main(int argc, char** argv) {
 		} else {
 			CE = leer_imagen(argv[2], &pin);
 			if(CE != OK) {
+				destruir_imagen(&pin);
 				return CE;
 			} else {
 				CE = filtrar_sepia(&pin, &pout);
 				if(CE != OK) {
+					destruir_imagen(&pin);
+					destruir_imagen(&pout);
 					return CE;
 				} else {
 					formato = !strcmp(argv[4], "PLANO") ? PLANO : NO_PLANO;
 					CE = escribir_imagen(&pout, argv[3], formato);
 					if(CE != OK) {
+						destruir_imagen(&pin);
+						destruir_imagen(&pout);
 						return CE;
 					} else {
+						destruir_imagen(&pin);
+						destruir_imagen(&pout);
 						return OK;
 					}
 				}
