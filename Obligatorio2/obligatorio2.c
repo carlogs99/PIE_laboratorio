@@ -16,10 +16,14 @@
 #include "imagen.h"
 
 int main(int argc, char** argv) {
-	Imagen_t pin, pout;
-	CodigoError_t CE;
-	FormatoPPM_t formato; 
+	Imagen_t pin;//, pout;
+	//CodigoError_t CE;
+	//FormatoPPM_t formato; 
 	
+	generar_cripto_imagen(&pin, 500, 800, 19);
+	escribir_imagen(&pin, "./cripto_imagen_test.ppm", PLANO);
+	
+	/*
 	if(!(strcmp(argv[1], "convertir_formato"))) {
 		if(argc != 5 || (strcmp(argv[4], "PLANO") && strcmp(argv[4], "NO_PLANO"))) {
 			return ERROR;
@@ -70,8 +74,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
-	
-	
+	*/
 	
 	return ERROR;
 }

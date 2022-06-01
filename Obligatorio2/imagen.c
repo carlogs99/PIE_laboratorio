@@ -248,6 +248,28 @@ CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout) {
 	return OK;
 }
 
+CodigoError_t generar_cripto_imagen(Imagen_t* pcriptoim, int filas, int columnas,
+int min_largo_clave) {
+	unsigned int largo_clave, mascara_clave, clave;
+
+	if(inicializar_imagen(pcriptoim, filas, columnas)) {
+		return ERROR;
+	}
+	
+	for(int i = 0 ; i < filas ; i++) {
+		for(int j = 0 ; j < columnas ; j++) {
+			largo_clave = rand() % (min_largo_clave + 1);
+			mascara_clave = crear_mascara(0, largo_clave-1);
+			clave = rand() & mascara_clave;
+			clave = (largo_clave << 19) | clave;
+			
+			(pcriptoim->pixeles)[i][j] = clave;
+		}
+	}
+	
+	return OK;
+}
+
 pixel_t min(unsigned int a, unsigned int b) {
 	return (a <= b) ? a : b;
 }

@@ -102,6 +102,20 @@ FormatoPPM_t formato);
  */
 CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout);
 
+/**
+ * @brief Inicializa la imagen apuntada por pcriptoim reservando memoria para 
+ * sus pixeles, y los rellena con claves de Vigenere aleatorias cuyo largo minimo 
+ * es el especificado por min_largo_clave y cuyo largo maximo es 19.
+ * Se asume que pcriptoim no esta inicializada previo a la llamada de la funcion. 
+ * Tambien se asume que 1 ≤ min_largo_clave ≤ 19.
+ * 
+ * @param pcriptoim Puntero a imagen en el que generar la cripto-imagen.
+ * @param filas Numero de filas de la cripto-imagen deseada.
+ * @param columnas Numero de columnas de la cripto-imagen deseada.
+ * @param min_largo_clave Largo minimo de cada clave de Vig`enere.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t generar_cripto_imagen(Imagen_t* pcriptoim, int filas, int columnas,
 int min_largo_clave);
 
