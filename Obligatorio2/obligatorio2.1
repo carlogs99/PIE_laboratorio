@@ -1,0 +1,54 @@
+.TH obligatorio2 1
+.SH NAME
+obligatorio2 \- Procesamiento y encriptacion de imagenes en formato PPM
+.SH SYNOPSIS
+.B ./obligatorio2 [subcomando] [argumentos]
+
+.SH DESCRIPTION
+Cada subcomando tiene sus argumentos necesarios que se deben ingresar a continuacion.
+.TP
+.BR convertir_formato
+Subcomando para convertir de formato plano a no plano y viceversa.
+
+.TP
+.BR filtrar_sepia
+Subcomando para aplicar el filtro sepia a una imagen.
+
+.TP
+.BR generar_cripto_imagen
+Subcomando para generar cripto imagenes aleatorias.
+
+.TP
+.BR validar_cripto_imagen
+Subcomando para verificar que una imagen PPM sea una cripto imagen con el formato especificado.
+El main debera imprimir un mensaje de error y retornar 1 en caso de error, mientras que si se trata
+de una cripto imagen valida se debe retornar un 0 e imprimir que es una cripto imagen.
+
+.TP
+.BR encriptar_imagen
+Subcomando para encriptar una imagen al formato plano o no. Debe verificar que la cripto-imagen
+sea valida, en caso contrario lanza un error y el main retorna 1.
+
+.SH SUBCOMANDOS
+.TP
+.BR convertir_formato
+obligatorio2 convertir_formato RUTA_IM_ENTRADA RUTA_IM_SALIDA FORMATO_PPM
+
+.TP
+.BR filtrar_sepia
+obligatorio2 filtrar_sepia RUTA_IM_ENTRADA RUTA_IM_SALIDA FORMATO_PPM
+
+.TP
+.BR generar_cripto_imagen
+obligatorio2 generar cripto imagen FILAS COLUMNAS LARGO_CLAVE_MIN RUTA_CRIPTO_IM FORMATO_PPM
+
+.TP
+.BR validar_cripto_imagen
+obligatorio2 validar_cripto_imagen RUTA_CRIPTO_IM
+
+.TP
+.BR encriptar_imagen
+obligatorio2 encriptar_imagen RUTA_IM_ENTRADA RUTA_CRIPTO_IM RUTA_IM_SALIDA FORMATO_PPM
+
+
+
