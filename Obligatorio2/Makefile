@@ -1,6 +1,6 @@
 
 # Define una constante que tiene las banderas de compilacion
-COMOPT=-Wall -std=c99 -ggdb -Werror
+COMOPT=-Wall -std=c99 -ggdb -Werror ##-O0 ##ultima opcion para GDB
 ### -Wall    : muestra todos los warnings
 ### -std=c99 : utiliza el estandar c99
 ### -ggbd    : permite utilizar los ejecutables con el debugger

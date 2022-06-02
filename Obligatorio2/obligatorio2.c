@@ -16,7 +16,7 @@
 #include "imagen.h"
 
 int main(int argc, char** argv) {
-	Imagen_t pin, pout;
+	Imagen_t pin, pout, pcriptoim;
 	CodigoError_t CE;
 	FormatoPPM_t formato; 
 	
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 	}
 	
 	if(!(strcmp(argv[1], "convertir_formato")) && argc == 5) {
-		if(strcmp(argv[4], "PLANO") && strcmp(argv[4], "NO_PLANO")) {
+		if(strcmp(argv[4], "plano") && strcmp(argv[4], "no_plano")) {
 			return ERROR;
 		} else {
 			CE = leer_imagen(argv[2], &pin);
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 				destruir_imagen(&pin);
 				return CE;
 			} else {
-				formato = !strcmp(argv[4], "PLANO") ? PLANO : NO_PLANO;
+				formato = !strcmp(argv[4], "plano") ? PLANO : NO_PLANO;
 				CE = escribir_imagen(&pin, argv[3], formato);
 				if(CE != OK) {
 					destruir_imagen(&pin);
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	} else if(!(strcmp(argv[1], "filtrar_sepia")) && argc == 5) {
-		if(strcmp(argv[4], "PLANO") && strcmp(argv[4], "NO_PLANO")) {
+		if(strcmp(argv[4], "plano") && strcmp(argv[4], "no_plano")) {
 			return ERROR;
 		} else {
 			CE = leer_imagen(argv[2], &pin);
@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
 					destruir_imagen(&pout);
 					return CE;
 				} else {
-					formato = !strcmp(argv[4], "PLANO") ? PLANO : NO_PLANO;
+					formato = !strcmp(argv[4], "plano") ? PLANO : NO_PLANO;
 					CE = escribir_imagen(&pout, argv[3], formato);
 					if(CE != OK) {
 						destruir_imagen(&pin);
@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	} else if(!(strcmp(argv[1], "generar_cripto_imagen")) && argc == 7) {
-		if((strcmp(argv[6], "PLANO") && strcmp(argv[6], "NO_PLANO")) || atoi(argv[4]) < 1 || atoi(argv[4]) > 19) {
+		if((strcmp(argv[6], "plano") && strcmp(argv[6], "no_plano")) || atoi(argv[4]) < 1 || atoi(argv[4]) > 19) {
 			return ERROR;
 		} else {
 			CE = generar_cripto_imagen(&pin, atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
 				destruir_imagen(&pin);
 				return CE;
 			} else {
-				formato = !strcmp(argv[6], "PLANO") ? PLANO : NO_PLANO;
+				formato = !strcmp(argv[6], "plano") ? PLANO : NO_PLANO;
 				CE = escribir_imagen(&pin, argv[5], formato);
 				if(CE != OK) {
 					destruir_imagen(&pin);
@@ -102,11 +102,58 @@ int main(int argc, char** argv) {
 			return 1;
 		} else {
 			CE = validar_cripto_imagen(&pin);
-			printf("Cripto-imagen válida\n");
-			return OK;
+			if(CE != OK) {
+				destruir_imagen(&pin);
+				printf("Error: Cripto-imagen no válida\n");
+				return 1;
+			} else {
+				destruir_imagen(&pin);
+				printf("Cripto-imagen válida\n");
+				return OK;
+			}
+		}
+	} else if(!(strcmp(argv[1], "encriptar_imagen")) && argc == 6) {
+		if((strcmp(argv[5], "plano") && strcmp(argv[5], "no_plano"))) {
+			return ERROR;
+		} else {
+			CE = leer_imagen(argv[3], &pcriptoim);
+			if(CE != OK) {
+				destruir_imagen(&pcriptoim);
+				return CE;
+			} else {
+				CE = validar_cripto_imagen(&pcriptoim);
+				if(CE != OK) {
+					destruir_imagen(&pcriptoim);
+					printf("Error: Cripto-imagen no válida\n");
+					return 1;
+				} else {
+					CE = leer_imagen(argv[2], &pin);
+					if(CE != OK) {
+						destruir_imagen(&pcriptoim);
+						destruir_imagen(&pin);
+						return CE;
+					} else {
+						CE = encriptar_imagen(&pin, &pcriptoim, &pout);
+						if(CE != OK) {
+							destruir_imagen(&pcriptoim);
+							destruir_imagen(&pin);
+							return CE;
+						} else {
+							formato = !strcmp(argv[5], "plano") ? PLANO : NO_PLANO;
+							CE = escribir_imagen(&pout, argv[4], formato);
+							if(CE != OK) {
+								destruir_imagen(&pcriptoim);
+								destruir_imagen(&pin);
+								return CE;
+							} else {
+								return OK;
+							}
+						}
+					}
+				}
+			}		
 		}
 	}
-	
 	
 	return ERROR;
 }

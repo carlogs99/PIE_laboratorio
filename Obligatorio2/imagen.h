@@ -120,7 +120,7 @@ CodigoError_t generar_cripto_imagen(Imagen_t* pcriptoim, int filas, int columnas
 int min_largo_clave);
 
 /**
- * @briefEvalua si un puntero a imagen es una cripto-imagen valida para el 
+ * @brief Evalua si un puntero a imagen es una cripto-imagen valida para el 
  * algoritmo de  encriptacion, es decir todos sus largos son mayores o iguales 
  * a 1 y menores o iguales a 19. En caso de serlo retorna OK, y en caso 
  * contrario retorna PPM_CRIPTO_NO_VALIDA.
@@ -132,7 +132,22 @@ int min_largo_clave);
  */
 CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim);
 
-CodigoError_t encriptar_imagen(const Imagen_t* pin, const Imagen_t* prcriptoim,
+/**
+ * @brief Aplica una encriptacion de Vigenere con una clave distinta para cada pixel 
+ * de la imagen apuntada por pin de acuerdo al contenido de cada pixel de 
+ * pcriptoim. El resultado se guarda en la imagen apuntada por pout. 
+ * La reserva de memoria para los pixeles de pout se debe realizar dentro de 
+ * la funcion. Se asume que pin y pcriptoim estan inicializadas y que pout no 
+ * lo esta al llamar la funcion. Tambien se asume que pcriptoim siempre seguira 
+ * el formato de cripto-imagen indicado (largo de clave menor o igual a 19).
+ * 
+ * @param pin Puntero conteniendo la imagen a encriptar.
+ * @param pcriptoim Puntero a la cripto-imagen utilizada para encriptar.
+ * @param pout Puntero conteniendo el resultado de encriptar.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
+CodigoError_t encriptar_imagen(const Imagen_t* pin, const Imagen_t* pcriptoim,
 Imagen_t* pout);
 
 /**

@@ -258,7 +258,7 @@ int min_largo_clave) {
 	
 	for(int i = 0 ; i < filas ; i++) {
 		for(int j = 0 ; j < columnas ; j++) {
-			largo_clave = rand() % (min_largo_clave + 1);
+			largo_clave = rand() % (19 + 1 - min_largo_clave) + min_largo_clave;
 			mascara_clave = crear_mascara(0, largo_clave-1);
 			clave = rand() & mascara_clave;
 			clave = (largo_clave << 19) | clave;
@@ -273,7 +273,7 @@ int min_largo_clave) {
 CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim) {
 	unsigned int mascara_largo, largo_clave;
 	
-	mascara_largo = crear_mascara(20, 24);
+	mascara_largo = crear_mascara(19, 23);
 	
 	for(int i = 0 ; i < (pcriptoim->filas) ; i++) {
 		for(int j = 0 ; j < (pcriptoim->columnas) ; j++) {
@@ -282,6 +282,28 @@ CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim) {
 			if(largo_clave > 19 || largo_clave < 1) {
 				return PPM_CRIPTO_NO_VALIDA;
 			}
+		}
+	}
+	
+	return OK;
+}
+
+CodigoError_t encriptar_imagen(const Imagen_t* pin, const Imagen_t* pcriptoim,
+Imagen_t* pout) {
+	Clave_t clave;
+	pixel_t cripto_pixel;
+	
+	if(inicializar_imagen(pout, pin->filas, pin->columnas)) {
+		return ERROR;
+	}
+	
+	for(int i = 0 ; i < (pin->filas) ; i++) {
+		for(int j = 0 ; j < (pin->columnas) ; j++) {
+			cripto_pixel = (pcriptoim->pixeles)[i%(pcriptoim->filas)][j%(pcriptoim->columnas)];
+			clave.largo = (cripto_pixel >> 19) & crear_mascara(0, 4);
+			clave.valor = cripto_pixel & crear_mascara(0, clave.largo);
+			
+			(pout->pixeles)[i][j] = encriptar((pin->pixeles)[i][j], clave);
 		}
 	}
 	
