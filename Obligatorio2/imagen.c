@@ -270,6 +270,24 @@ int min_largo_clave) {
 	return OK;
 }
 
+CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim) {
+	unsigned int mascara_largo, largo_clave;
+	
+	mascara_largo = crear_mascara(20, 24);
+	
+	for(int i = 0 ; i < (pcriptoim->filas) ; i++) {
+		for(int j = 0 ; j < (pcriptoim->columnas) ; j++) {
+			largo_clave = (mascara_largo & (pcriptoim->pixeles)[i][j]) >> 19;
+			
+			if(largo_clave > 19 || largo_clave < 1) {
+				return PPM_CRIPTO_NO_VALIDA;
+			}
+		}
+	}
+	
+	return OK;
+}
+
 pixel_t min(unsigned int a, unsigned int b) {
 	return (a <= b) ? a : b;
 }

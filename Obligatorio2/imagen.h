@@ -119,6 +119,17 @@ CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout);
 CodigoError_t generar_cripto_imagen(Imagen_t* pcriptoim, int filas, int columnas,
 int min_largo_clave);
 
+/**
+ * @briefEvalua si un puntero a imagen es una cripto-imagen valida para el 
+ * algoritmo de  encriptacion, es decir todos sus largos son mayores o iguales 
+ * a 1 y menores o iguales a 19. En caso de serlo retorna OK, y en caso 
+ * contrario retorna PPM_CRIPTO_NO_VALIDA.
+ * Se asume que pcriptoim esta inicializada previo a la llamada de la funcion.
+ * 
+ * @param pcriptoim Puntero a imagen con la candidata a cripto-imagen a evaluar.
+ * 
+ * @return Devuelve un valor de tipo CodigoError_t segun el caso.
+ */
 CodigoError_t validar_cripto_imagen(const Imagen_t* pcriptoim);
 
 CodigoError_t encriptar_imagen(const Imagen_t* pin, const Imagen_t* prcriptoim,
