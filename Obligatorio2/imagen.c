@@ -124,7 +124,10 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		fscanf(fp, " "); //Saltear espacio blanco hasta comienzo pixels
 		for(int i = 0 ; i < filas ; i++) {
 			for(int j = 0 ; j < columnas ; j++) {
-				fscanf(fp, "%s %s %s", aux_pixel_R, aux_pixel_G, aux_pixel_B);		//IMPLEMENTAR ERROR PPM_DATOS_INVALIDOS
+				if(fscanf(fp, "%s %s %s", aux_pixel_R, aux_pixel_G, aux_pixel_B) != 3) {
+					fclose(fp);
+					return PPM_DATOS_INVALIDOS;
+				}		
 				aux_pixel = atoi(aux_pixel_R);
 				aux_pixel = concatena(aux_pixel, atoi(aux_pixel_G), 8);
 				aux_pixel = concatena(aux_pixel, atoi(aux_pixel_B), 8);
@@ -135,9 +138,18 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		fscanf(fp, " "); //Saltear espacio blanco hasta comienzo pixels
 		for(int i = 0 ; i < filas ; i++) {
 			for(int j = 0 ; j < columnas ; j++) {
-				aux_byte_R = fgetc(fp);
-				aux_byte_G = fgetc(fp);
-				aux_byte_B = fgetc(fp);
+				if((aux_byte_R = fgetc(fp)) == EOF) {
+					fclose(fp);
+					return PPM_DATOS_INVALIDOS;
+				}
+				if((aux_byte_G = fgetc(fp)) == EOF) {
+					fclose(fp);
+					return PPM_DATOS_INVALIDOS;
+				}
+				if((aux_byte_B = fgetc(fp)) == EOF) {
+					fclose(fp);
+					return PPM_DATOS_INVALIDOS;
+				}
 				aux_pixel = aux_byte_R;
 				aux_pixel = concatena(aux_pixel, aux_byte_G, 8);
 				aux_pixel = concatena(aux_pixel, aux_byte_B, 8);
@@ -162,14 +174,20 @@ FormatoPPM_t formato) {
 	}
 	
 	if(formato == PLANO) {
-		fprintf(fp, "%s\n%u\n%u\n%u\n", "P3", pin->columnas, pin->filas, 255);		//ERROR CHECKING FALTA
+		if(fprintf(fp, "%s\n%u\n%u\n%u\n", "P3", pin->columnas, pin->filas, 255) < 0) {
+			fclose(fp);
+			return PPM_ERROR_ESCRITURA;
+		}
 		for(int i = 0 ; i < (pin->filas) ; i++) {
 			for(int j = 0 ; j < (pin->columnas) ; j++) {
 				aux_pixel_R = ((pin->pixeles)[i][j] & mascara_R) >> 16;
 				aux_pixel_G = ((pin->pixeles)[i][j] & mascara_G) >> 8;
 				aux_pixel_B = ((pin->pixeles)[i][j] & mascara_B);
 			
-				fprintf(fp, "%u %u %u\t", aux_pixel_R, aux_pixel_G, aux_pixel_B); 
+				if(fprintf(fp, "%u %u %u\t", aux_pixel_R, aux_pixel_G, aux_pixel_B) < 0) {
+					fclose(fp);
+					return PPM_ERROR_ESCRITURA;
+				} 
 			}
 		}
 	} else if(formato == NO_PLANO) {
@@ -180,9 +198,18 @@ FormatoPPM_t formato) {
 				aux_pixel_G = ((pin->pixeles)[i][j] & mascara_G) >> 8;
 				aux_pixel_B = ((pin->pixeles)[i][j] & mascara_B);
 				
-				fputc(aux_pixel_R, fp);
-				fputc(aux_pixel_G, fp);
-				fputc(aux_pixel_B, fp);
+				if(fputc(aux_pixel_R, fp) == EOF) {
+					fclose(fp);
+					return PPM_ERROR_ESCRITURA;
+				}
+				if(fputc(aux_pixel_G, fp) == EOF) {
+					fclose(fp);
+					return PPM_ERROR_ESCRITURA;
+				}
+				if(fputc(aux_pixel_B, fp) == EOF) {
+					fclose(fp);
+					return PPM_ERROR_ESCRITURA;
+				}
 			}
 		}
 	} else {
