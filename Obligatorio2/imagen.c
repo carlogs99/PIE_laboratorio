@@ -138,15 +138,15 @@ CodigoError_t leer_imagen(const char* ruta_imagen, Imagen_t* pin) {
 		fscanf(fp, " "); //Saltear espacio blanco hasta comienzo pixels
 		for(int i = 0 ; i < filas ; i++) {
 			for(int j = 0 ; j < columnas ; j++) {
-				if((aux_byte_R = fgetc(fp)) == EOF) {
+				if((aux_byte_R = fgetc(fp)) == EOF && feof(fp)) {
 					fclose(fp);
 					return PPM_DATOS_INVALIDOS;
 				}
-				if((aux_byte_G = fgetc(fp)) == EOF) {
+				if((aux_byte_G = fgetc(fp)) == EOF && feof(fp)) {
 					fclose(fp);
 					return PPM_DATOS_INVALIDOS;
 				}
-				if((aux_byte_B = fgetc(fp)) == EOF) {
+				if((aux_byte_B = fgetc(fp)) == EOF && feof(fp)) {
 					fclose(fp);
 					return PPM_DATOS_INVALIDOS;
 				}
