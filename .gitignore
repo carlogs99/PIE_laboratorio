@@ -12,6 +12,10 @@
 # Ignore image example folders
 Obligatorio2/cripto_imagenes_ppm/
 Obligatorio2/imagenes_ppm/
+Obligatorio2/imagenes
+Obligatorio2/imagenes_ppm
+Obligatorio2/logs
+Obligatorio2/test_funciones
 
 # Ignore all object files
 *.o

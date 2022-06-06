@@ -234,9 +234,9 @@ CodigoError_t filtrar_sepia(const Imagen_t* pin, Imagen_t* pout) {
 			G_in = ((pin->pixeles)[i][j] & mascara_G) >> 8;
 			B_in = ((pin->pixeles)[i][j] & mascara_B);
 			
-			R_out = min(round(0.393*R_in + 0.769*B_in + 0.189*G_in), 255);
-			G_out = min(round(0.349*R_in + 0.686*B_in + 0.168*G_in), 255);
-			B_out = min(round(0.272*R_in + 0.534*B_in + 0.131*G_in), 255);
+			R_out = min(round(0.393*R_in + 0.769*G_in + 0.189*B_in), 255);
+			G_out = min(round(0.349*R_in + 0.686*G_in + 0.168*B_in), 255);
+			B_out = min(round(0.272*R_in + 0.534*G_in + 0.131*B_in), 255);
 			
 			aux_pixel = R_out;
 			aux_pixel = concatena(aux_pixel, G_out, 8);
