@@ -1,4 +1,4 @@
-# PIE_laboratorio
+# udelar_pie_laboratorio
 Obligatorios Programación para Ingeniería Eléctrica (FIng UdelaR)
 
 ## Obligatorio 1
@@ -13,7 +13,3 @@ Librería de manejo de imagenes en formato PPM y PPM plano. Además incluye func
 * Typedefs: Mayúscula en la primera letra y snake_case.
 * Constantes: Todo mayúscula y snake_case.
 
-## Calificación
-* Obligatorio 1: 24/24
-* Obligatorio 2: -/40
-* Total: -/64
