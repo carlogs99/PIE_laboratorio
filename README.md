@@ -1,4 +1,4 @@
-# udelar_pie_laboratorio
+# udelar-pie-laboratorio
 Obligatorios Programación para Ingeniería Eléctrica (FIng UdelaR)
 
 ## Obligatorio 1
